@@ -9,3 +9,12 @@ CREATE TABLE books
     author VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE users
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL,
+    birthday DATE NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id)
+);
