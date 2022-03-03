@@ -1,0 +1,24 @@
+package persistence
+
+import (
+	"github.com/jinzhu/gorm"
+
+	"github.com/onituka/go-echo-gorm-sample/domain/bookdm"
+)
+
+type bookRepository struct {
+	Conn *gorm.DB
+}
+
+func NewBookRepository(conn *gorm.DB) bookdm.BookRepository {
+	return &bookRepository{Conn: conn}
+}
+
+func (r *bookRepository) FetchBook(bookID int) (*bookdm.Book, error) {
+	book := &bookdm.Book{ID: bookID}
+
+	if err := r.Conn.First(&book).Error; err != nil {
+		return nil, err
+	}
+	return book, nil
+}
