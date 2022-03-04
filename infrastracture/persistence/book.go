@@ -17,7 +17,7 @@ func NewBookRepository(conn *gorm.DB) bookdm.BookRepository {
 func (r *bookRepository) FetchBook(bookID int) (*bookdm.Book, error) {
 	book := &bookdm.Book{ID: bookID}
 
-	if err := r.Conn.First(&book).Error; err != nil {
+	if err := r.Conn.Debug().First(&book).Error; err != nil {
 		return nil, err
 	}
 	return book, nil
