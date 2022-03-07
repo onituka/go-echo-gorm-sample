@@ -1,5 +1,6 @@
 package bookdm
 
 type BookRepository interface {
-	FetchBook(BookID int) (*Book, error)
+	FetchBook(bookID int) (*Book, error)
+	CreateBook(book *Book) (*Book, error)
 }
