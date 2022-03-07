@@ -24,7 +24,7 @@ func (r *bookRepository) FetchBook(bookID int) (*bookdm.Book, error) {
 }
 
 func (r *bookRepository) CreateBook(book *bookdm.Book) (*bookdm.Book, error) {
-	if err := r.Conn.Create(&book).Error; err != nil {
+	if err := r.Conn.Debug().Create(&book).Error; err != nil {
 		return nil, err
 	}
 
