@@ -30,3 +30,12 @@ func (r *bookRepository) CreateBook(book *bookdm.Book) (*bookdm.Book, error) {
 
 	return book, nil
 }
+
+func (r *bookRepository) FetchBooks() ([]bookdm.Book, error) {
+	var books []bookdm.Book
+
+	if err := r.Conn.Debug().Find(&books).Error; err != nil {
+		return nil, err
+	}
+	return books, nil
+}
