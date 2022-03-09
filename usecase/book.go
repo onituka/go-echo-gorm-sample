@@ -7,6 +7,7 @@ import (
 type BookUsecase interface {
 	FetchBook(bookID int) (*bookdm.Book, error)
 	CreateBook(title string, author string) (*bookdm.Book, error)
+	FetchBooks() ([]bookdm.Book, error)
 }
 
 type bookUsecase struct {
@@ -36,4 +37,21 @@ func (u *bookUsecase) CreateBook(title string, author string) (*bookdm.Book, err
 		return nil, err
 	}
 	return createdBook, nil
+}
+
+func (u *bookUsecase) FetchBooks() ([]bookdm.Book, error) {
+	books, err := u.bookRepository.FetchBooks()
+	if err != nil {
+		return nil, err
+	}
+	booksDto := make([]bookdm.Book, len(books))
+
+	for i, book := range books {
+		booksDto[i] = bookdm.Book{
+			ID:     book.ID,
+			Title:  book.Title,
+			Author: book.Author,
+		}
+	}
+	return booksDto, nil
 }

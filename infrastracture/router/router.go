@@ -19,6 +19,7 @@ func Run() error {
 
 	e.GET("/book/:id", bookHandler.Get())
 	e.POST("/book", bookHandler.Post())
+	e.GET("/books", bookHandler.GetAll())
 
 	if err := e.Start(":8015"); err != nil {
 		return err

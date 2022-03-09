@@ -13,6 +13,7 @@ import (
 type BookHandler interface {
 	Get() echo.HandlerFunc
 	Post() echo.HandlerFunc
+	GetAll() echo.HandlerFunc
 }
 
 type bookHandler struct {
@@ -54,5 +55,15 @@ func (h *bookHandler) Post() echo.HandlerFunc {
 			Author: createBook.Author,
 		}
 		return c.JSON(http.StatusOK, out)
+	}
+}
+
+func (h *bookHandler) GetAll() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		books, err := h.bookUsecase.FetchBooks()
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+		return c.JSON(http.StatusOK, books)
 	}
 }
