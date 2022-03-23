@@ -15,11 +15,17 @@ func Run() error {
 	bookUsecase := usecase.NewBookUsecase(bookRepository)
 	bookHandler := handler.NewBookHandler(bookUsecase)
 
+	rentalBookRepository := persistence.NewRentalBookRepository(rdb.NewDB())
+	rentalBookUsecase := usecase.NewRentalBookUsecase(rentalBookRepository)
+	rentalBookHandler := handler.NewRentalBookHandler(rentalBookUsecase)
+
 	e := echo.New()
 
 	e.GET("/book/:id", bookHandler.Get())
 	e.POST("/book", bookHandler.Post())
 	e.GET("/books", bookHandler.GetAll())
+
+	e.GET("/rentalbook/:id", rentalBookHandler.Get())
 
 	if err := e.Start(":8015"); err != nil {
 		return err
