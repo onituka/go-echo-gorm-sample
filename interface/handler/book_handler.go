@@ -20,7 +20,7 @@ type bookHandler struct {
 	bookUsecase usecase.BookUsecase
 }
 
-func NewBookHandler(bookUsecase usecase.BookUsecase) BookHandler {
+func NewBookHandler(bookUsecase usecase.BookUsecase) *bookHandler {
 	return &bookHandler{bookUsecase: bookUsecase}
 }
 
