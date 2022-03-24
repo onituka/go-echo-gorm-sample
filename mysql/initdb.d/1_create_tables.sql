@@ -27,7 +27,6 @@ CREATE TABLE rental_books
     loan_date       DATE   NOT NULL,
     return_date     DATE   DEFAULT NULL,
     return_deadline DATE   NOT NULL,
-    completion      BIT(1) NOT NULL DEFAULT b'0',
     PRIMARY KEY (id),
     FOREIGN KEY fk_rental_books_book_id (book_id)
         REFERENCES books (id)
