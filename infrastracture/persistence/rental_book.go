@@ -23,3 +23,11 @@ func (r *rentalBookRepository) FetchRentalBook(rentalID int) (*rentalbookdm.Rent
 
 	return rentalBook, nil
 }
+
+func (r *rentalBookRepository) CreateRentalBook(rentalBook *rentalbookdm.RentalBook) (*rentalbookdm.RentalBook, error) {
+	if err := r.Conn.Debug().Create(&rentalBook).Error; err != nil {
+		return nil, err
+	}
+
+	return rentalBook, nil
+}
