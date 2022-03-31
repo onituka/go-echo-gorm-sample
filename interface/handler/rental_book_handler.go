@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo"
 
@@ -13,6 +14,7 @@ import (
 type RentalBookHandler interface {
 	Get() echo.HandlerFunc
 	Post() echo.HandlerFunc
+	Put() echo.HandlerFunc
 }
 
 type rentalBookHandler struct {
@@ -57,6 +59,38 @@ func (h *rentalBookHandler) Post() echo.HandlerFunc {
 			LoanDate:       createRentalBook.LoanDate,
 			ReturnDate:     createRentalBook.ReturnDate,
 			ReturnDeadline: createRentalBook.ReturnDeadline,
+		}
+
+		return c.JSON(http.StatusOK, out)
+	}
+}
+
+func (h *rentalBookHandler) Put() echo.HandlerFunc {
+	return func(c echo.Context) error {
+
+		rentalID, err := strconv.Atoi(c.Param("id"))
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		type UpdateRequest struct {
+			ReturnDate time.Time
+		}
+
+		var req UpdateRequest
+		updateRentalBook, err := h.rentalBookUsecase.UpdateRentalBook(rentalID, req.ReturnDate)
+
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		out := rentalbookdm.RentalBook{
+			ID:             updateRentalBook.ID,
+			BookID:         updateRentalBook.BookID,
+			UserID:         updateRentalBook.UserID,
+			LoanDate:       updateRentalBook.LoanDate,
+			ReturnDate:     updateRentalBook.ReturnDate,
+			ReturnDeadline: updateRentalBook.ReturnDeadline,
 		}
 
 		return c.JSON(http.StatusOK, out)

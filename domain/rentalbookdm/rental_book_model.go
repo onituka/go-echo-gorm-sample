@@ -21,3 +21,9 @@ func NewAddRentalBook(id int, bookID int, userID int, loanDate time.Time, return
 		ReturnDeadline: returnDeadline,
 	}
 }
+
+func (r *RentalBook) Set(returnDate time.Time) error {
+	returnDate = time.Now().UTC()
+	r.ReturnDate = &returnDate
+	return nil
+}

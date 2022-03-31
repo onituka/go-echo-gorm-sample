@@ -27,6 +27,7 @@ func Run() error {
 
 	e.GET("/rentalbook/:id", rentalBookHandler.Get())
 	e.POST("/rentalbook", rentalBookHandler.Post())
+	e.PUT("/rentalbook/:id", rentalBookHandler.Put())
 
 	if err := e.Start(":8015"); err != nil {
 		return err
