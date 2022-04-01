@@ -31,3 +31,11 @@ func (r *rentalBookRepository) CreateRentalBook(rentalBook *rentalbookdm.RentalB
 
 	return rentalBook, nil
 }
+
+func (r *rentalBookRepository) UpdateRentalBook(rentalBook *rentalbookdm.RentalBook) (*rentalbookdm.RentalBook, error) {
+	if err := r.Conn.Model(&rentalBook).Debug().Update(&rentalBook).Error; err != nil {
+		return nil, err
+	}
+
+	return rentalBook, nil
+}

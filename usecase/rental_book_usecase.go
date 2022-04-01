@@ -9,6 +9,7 @@ import (
 type RentalBookUsecase interface {
 	FetchRentalBook(rentalID int) (*rentalbookdm.RentalBook, error)
 	CreateRentalBook(rentalBook *rentalbookdm.RentalBook) (*rentalbookdm.RentalBook, error)
+	UpdateRentalBook(rentalID int, returnDate time.Time) (*rentalbookdm.RentalBook, error)
 }
 
 type rentalBookUsecase struct {
@@ -45,4 +46,22 @@ func (u *rentalBookUsecase) CreateRentalBook(rentalBook *rentalbookdm.RentalBook
 	}
 
 	return createdRentalDate, err
+}
+
+func (u *rentalBookUsecase) UpdateRentalBook(rentalID int, returnDate time.Time) (*rentalbookdm.RentalBook, error) {
+	targetRental, err := u.rentalBookRepository.FetchRentalBook(rentalID)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = targetRental.Set(returnDate); err != nil {
+		return nil, err
+	}
+
+	updateRentalBook, err := u.rentalBookRepository.UpdateRentalBook(targetRental)
+	if err != nil {
+		return nil, err
+	}
+
+	return updateRentalBook, nil
 }
