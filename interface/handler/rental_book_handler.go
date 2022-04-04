@@ -13,6 +13,7 @@ import (
 
 type RentalBookHandler interface {
 	Get() echo.HandlerFunc
+	GetAll() echo.HandlerFunc
 	Post() echo.HandlerFunc
 	Put() echo.HandlerFunc
 }
@@ -94,5 +95,17 @@ func (h *rentalBookHandler) Put() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, out)
+	}
+}
+
+func (h *rentalBookHandler) GetAll() echo.HandlerFunc {
+	return func(c echo.Context) error {
+
+		rentalBooks, err := h.rentalBookUsecase.FetchRentalBooks()
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, err.Error())
+		}
+
+		return c.JSON(http.StatusOK, rentalBooks)
 	}
 }

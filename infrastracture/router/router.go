@@ -26,6 +26,7 @@ func Run() error {
 	e.GET("/books", bookHandler.GetAll())
 
 	e.GET("/rentalbook/:id", rentalBookHandler.Get())
+	e.GET("/rentalbook", rentalBookHandler.GetAll())
 	e.POST("/rentalbook", rentalBookHandler.Post())
 	e.PUT("/rentalbook/:id", rentalBookHandler.Put())
 
