@@ -39,3 +39,12 @@ func (r *rentalBookRepository) UpdateRentalBook(rentalBook *rentalbookdm.RentalB
 
 	return rentalBook, nil
 }
+
+func (r *rentalBookRepository) FetchRentalBooks() ([]rentalbookdm.RentalBook, error) {
+	var rentalBooks []rentalbookdm.RentalBook
+	if err := r.Conn.Debug().Find(&rentalBooks).Error; err != nil {
+		return nil, err
+	}
+
+	return rentalBooks, nil
+}

@@ -8,6 +8,7 @@ import (
 
 type RentalBookUsecase interface {
 	FetchRentalBook(rentalID int) (*rentalbookdm.RentalBook, error)
+	FetchRentalBooks() ([]rentalbookdm.RentalBook, error)
 	CreateRentalBook(rentalBook *rentalbookdm.RentalBook) (*rentalbookdm.RentalBook, error)
 	UpdateRentalBook(rentalID int, returnDate time.Time) (*rentalbookdm.RentalBook, error)
 }
@@ -64,4 +65,25 @@ func (u *rentalBookUsecase) UpdateRentalBook(rentalID int, returnDate time.Time)
 	}
 
 	return updateRentalBook, nil
+}
+
+func (u *rentalBookUsecase) FetchRentalBooks() ([]rentalbookdm.RentalBook, error) {
+	rentalBooks, err := u.rentalBookRepository.FetchRentalBooks()
+	if err != nil {
+		return nil, err
+	}
+
+	rentalBooksDto := make([]rentalbookdm.RentalBook, len(rentalBooks))
+
+	for i, rentalBook := range rentalBooks {
+		rentalBooksDto[i] = rentalbookdm.RentalBook{
+			ID:             rentalBook.ID,
+			BookID:         rentalBook.BookID,
+			UserID:         rentalBook.UserID,
+			LoanDate:       rentalBook.LoanDate,
+			ReturnDate:     rentalBook.ReturnDate,
+			ReturnDeadline: rentalBook.ReturnDeadline,
+		}
+	}
+	return rentalBooksDto, nil
 }
