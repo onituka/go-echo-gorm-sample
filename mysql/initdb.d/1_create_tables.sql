@@ -7,6 +7,7 @@ CREATE TABLE books
     id     INT         NOT NULL AUTO_INCREMENT,
     title  VARCHAR(20) NOT NULL,
     author VARCHAR(20) NOT NULL,
+    number CHAR(36)    NOT NULL,
     PRIMARY KEY (id)
 );
 

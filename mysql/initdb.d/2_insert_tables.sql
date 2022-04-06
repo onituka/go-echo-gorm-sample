@@ -2,13 +2,13 @@ USE sample_db;
 
 -- books table insert date
 INSERT INTO books
-    (id, title, author)
+    (id, title, author, number)
 VALUES
-    (1, "はだしのゲン", "長澤まさみ"),
-    (2, "人生", "野口英夫"),
-    (3, "お金に関する知識", "夏目漱石"),
-    (4, "動物図鑑", "マッカーサー"),
-    (5, "植物図鑑", "西野七瀬");
+    (1, "はだしのゲン", "長澤まさみ","52dfc0d0-748e-41ec-88fd-acde48001122"),
+    (2, "人生", "野口英夫","92dfc0d0-748e-41ec-88fd-acde48001122"),
+    (3, "お金に関する知識", "夏目漱石","62dfc0d0-748e-41ec-88fd-acde48001122"),
+    (4, "動物図鑑", "マッカーサー","72dfc0d0-748e-41ec-88fd-acde48001122"),
+    (5, "植物図鑑", "西野七瀬","82dfc0d0-748e-41ec-88fd-acde48001122");
 
 -- users table insert date
 INSERT INTO users
