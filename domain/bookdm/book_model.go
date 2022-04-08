@@ -1,6 +1,8 @@
 package bookdm
 
-import "errors"
+import (
+	"errors"
+)
 
 type Book struct {
 	ID     int    `json:"id"`
@@ -9,12 +11,13 @@ type Book struct {
 	Number string `json:"number"`
 }
 
-func NewBook(title string, author string) (*Book, error) {
+func NewBook(title string, author string, number string) (*Book, error) {
 	if title == " " || author == "" {
 		return nil, errors.New("タイトルもしくは著者名を入力してください")
 	}
 	return &Book{
 		Title:  title,
 		Author: author,
+		Number: number,
 	}, nil
 }
