@@ -45,7 +45,7 @@ func (h *bookHandler) Post() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
 
-		createBook, err := h.bookUsecase.CreateBook(req.Title, req.Author)
+		createBook, err := h.bookUsecase.CreateBook(req.Title, req.Author, req.Number)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, err.Error())
 		}
@@ -53,6 +53,7 @@ func (h *bookHandler) Post() echo.HandlerFunc {
 			ID:     createBook.ID,
 			Title:  createBook.Title,
 			Author: createBook.Author,
+			Number: createBook.Number,
 		}
 		return c.JSON(http.StatusOK, out)
 	}

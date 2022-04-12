@@ -6,7 +6,7 @@ import (
 
 type BookUsecase interface {
 	FetchBook(bookID int) (*bookdm.Book, error)
-	CreateBook(title string, author string) (*bookdm.Book, error)
+	CreateBook(title string, author string, number string) (*bookdm.Book, error)
 	FetchBooks() ([]bookdm.Book, error)
 }
 
@@ -26,8 +26,11 @@ func (u *bookUsecase) FetchBook(bookID int) (*bookdm.Book, error) {
 	return book, nil
 }
 
-func (u *bookUsecase) CreateBook(title string, author string) (*bookdm.Book, error) {
-	book, err := bookdm.NewBook(title, author)
+func (u *bookUsecase) CreateBook(title string, author string, number string) (*bookdm.Book, error) {
+
+	number = string(bookdm.NewNumber())
+
+	book, err := bookdm.NewBook(title, author, number)
 	if err != nil {
 		return nil, err
 	}
