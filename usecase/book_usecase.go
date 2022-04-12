@@ -27,6 +27,9 @@ func (u *bookUsecase) FetchBook(bookID int) (*bookdm.Book, error) {
 }
 
 func (u *bookUsecase) CreateBook(title string, author string, number string) (*bookdm.Book, error) {
+
+	number = string(bookdm.NewNumber())
+
 	book, err := bookdm.NewBook(title, author, number)
 	if err != nil {
 		return nil, err

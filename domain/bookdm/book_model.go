@@ -2,6 +2,8 @@ package bookdm
 
 import (
 	"errors"
+
+	"github.com/google/uuid"
 )
 
 type Book struct {
@@ -20,4 +22,10 @@ func NewBook(title string, author string, number string) (*Book, error) {
 		Author: author,
 		Number: number,
 	}, nil
+}
+
+type Number string
+
+func NewNumber() Number {
+	return Number(uuid.New().String())
 }
