@@ -54,6 +54,7 @@ func (u *bookUsecase) FetchBooks() ([]bookdm.Book, error) {
 			ID:     book.ID,
 			Title:  book.Title,
 			Author: book.Author,
+			Number: book.Number,
 		}
 	}
 	return booksDto, nil
