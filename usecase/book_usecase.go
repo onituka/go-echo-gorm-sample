@@ -8,6 +8,7 @@ type BookUsecase interface {
 	FetchBook(bookID int) (*bookdm.Book, error)
 	CreateBook(title string, author string, number string) (*bookdm.Book, error)
 	FetchBooks() ([]bookdm.Book, error)
+	SearchBooks(title string, author string) ([]bookdm.Book, error)
 }
 
 type bookUsecase struct {
@@ -58,4 +59,14 @@ func (u *bookUsecase) FetchBooks() ([]bookdm.Book, error) {
 		}
 	}
 	return booksDto, nil
+}
+
+func (u *bookUsecase) SearchBooks(title string, author string) ([]bookdm.Book, error) {
+
+	bookDto, err := u.bookRepository.SearchBooks(title, author)
+	if err != nil {
+		return nil, err
+	}
+
+	return bookDto, nil
 }
