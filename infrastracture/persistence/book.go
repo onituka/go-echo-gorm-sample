@@ -39,3 +39,12 @@ func (r *bookRepository) FetchBooks() ([]bookdm.Book, error) {
 	}
 	return books, nil
 }
+
+func (r *bookRepository) SearchBooks(title string, author string) ([]bookdm.Book, error) {
+	var books []bookdm.Book
+	if err := r.Conn.Debug().Where("title like ?", "%"+title+"%").Or("author like ?", "%"+author+"%").Find(&books).Error; err != nil {
+		return nil, err
+	}
+
+	return books, nil
+}

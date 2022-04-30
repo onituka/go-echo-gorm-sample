@@ -14,6 +14,7 @@ type BookHandler interface {
 	Get() echo.HandlerFunc
 	Post() echo.HandlerFunc
 	GetAll() echo.HandlerFunc
+	Search() echo.HandlerFunc
 }
 
 type bookHandler struct {
@@ -67,4 +68,21 @@ func (h *bookHandler) GetAll() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK, books)
 	}
+}
+
+func (h *bookHandler) Search() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		title := c.QueryParam("title")
+
+		author := c.QueryParam("author")
+
+		books, err := h.bookUsecase.SearchBooks(title, author)
+		if err != nil {
+			return c.JSON(http.StatusNoContent, err.Error())
+		}
+
+		return c.JSON(http.StatusOK, books)
+
+	}
+
 }

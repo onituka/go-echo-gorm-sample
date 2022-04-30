@@ -8,8 +8,8 @@ import (
 
 type Book struct {
 	ID     int    `json:"id"`
-	Title  string `json:"title"`
-	Author string `json:"author"`
+	Title  string `json:"title"  query:"title"`
+	Author string `json:"author" query:"author"`
 	Number string `json:"number"`
 }
 
